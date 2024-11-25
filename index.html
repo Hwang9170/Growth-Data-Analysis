@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Quality Certification</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <h2>농작물 품질 보증서 생성</h2>
+    <input type="file" id="fileInput" accept=".csv" />
+    <button onclick="generatePDF()">품질 보증서 다운로드</button>
+
+    <script>
+        let cropData = [];
+
+        // Function to read CSV file
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                Papa.parse(file, {
+                    complete: function(results) {
+                        cropData = results.data;
+                        console.log(cropData); // Log the data to check it's loaded correctly
+                    },
+                    header: true
+                });
+            }
+        });
+
+        // Data analysis for crop quality
+        function analyzeCropQuality(data) {
+            let averageTemperature = 0;
+            let averageHumidity = 0;
+            let quality = 'Unknown';
+
+            // Calculate average temperature and humidity
+            data.forEach(row => {
+                averageTemperature += parseFloat(row['건구 온도']);
+                averageHumidity += parseFloat(row['상대 습도']);
+            });
+
+            averageTemperature /= data.length;
+            averageHumidity /= data.length;
+
+            // Example model based on thresholds
+            if (averageTemperature > 25 && averageHumidity < 60) {
+                quality = 'High Quality';
+            } else if (averageTemperature <= 25 && averageHumidity >= 60) {
+                quality = 'Average Quality';
+            } else {
+                quality = 'Low Quality';
+            }
+
+            return { quality, averageTemperature, averageHumidity };
+        }
+
+        // Function to generate PDF certificate
+        function generatePDF() {
+            if (cropData.length === 0) {
+                alert('CSV 파일을 먼저 업로드하세요!');
+                return;
+            }
+
+            const { quality, averageTemperature, averageHumidity } = analyzeCropQuality(cropData);
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(16);
+            doc.text("농작물 품질 보증서", 20, 20);
+            doc.setFontSize(12);
+            doc.text(`품질 분석 결과: ${quality}`, 20, 30);
+            doc.text(`평균 건구 온도: ${averageTemperature.toFixed(2)} °C`, 20, 40);
+            doc.text(`평균 상대 습도: ${averageHumidity.toFixed(2)} %`, 20, 50);
+            doc.text(`분석 날짜: ${new Date().toLocaleDateString()}`, 20, 60);
+
+            // Add more details based on data
+            doc.text(`최초 데이터 수집일자: ${cropData[0]['수집일자']}`, 20, 70);
+            doc.text(`이 데이터는 환경 데이터를 기반으로 품질을 분석한 결과입니다.`, 20, 80);
+
+            doc.save('농작물_품질_보증서.pdf');
+        }
+    </script>
+</body>
+</html>
