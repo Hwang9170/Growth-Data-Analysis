@@ -1,0 +1,103 @@
+/* 기본 스타일 */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+}
+
+/* 컨테이너 */
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 헤더 */
+header {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+
+header .logo img {
+  width: 150px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-top: 10px;
+}
+
+/* 섹션 스타일 */
+section {
+  margin-top: 30px;
+}
+
+section h2 {
+  font-size: 22px;
+  color: #333;
+  border-bottom: 2px solid #4CAF50;
+  padding-bottom: 10px;
+}
+
+/* 품질 정보 */
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+li strong {
+  color: #333;
+}
+
+/* QR 코드 */
+#qr-code img {
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin: 0 auto;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* 푸터 */
+footer {
+  margin-top: 40px;
+  text-align: center;
+  border-top: 2px solid #ccc;
+  padding-top: 20px;
+}
+
+footer .farm-info,
+footer .social-media {
+  margin-bottom: 15px;
+}
+
+footer a {
+  color: #4CAF50;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
