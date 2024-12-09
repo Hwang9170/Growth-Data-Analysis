@@ -9,16 +9,29 @@
 </head>
 <body>
     <header>
-        <h1>토마토 영양 성분 3개월 변화</h1>
-        <p>3개월 동안의 당도, 산도, 비타민 C 농도의 변화를 확인하세요.</p>
+        <h1>토마토 성장 추이 (3개월)</h1>
+        <p>농가 정보와 함께 3개월 동안의 당도, 산도, 비타민 C 농도의 변화를 확인하세요.</p>
     </header>
 
     <main>
-        <section>
+        <!-- 농가 정보 -->
+        <section class="farm-info">
+            <div class="info-card">
+                <h2>농가 정보</h2>
+                <p><strong>농가명:</strong> 청송 농장</p>
+                <p><strong>품종:</strong> 샤인 토마토</p>
+                <p><strong>GAP 인증:</strong> <span class="gap-certified">인증됨</span></p>
+                <p><strong>위치:</strong> 경북 청송</p>
+            </div>
+        </section>
+
+        <!-- 성장 변화 그래프 -->
+        <section class="graph-section">
             <h2>3개월간의 영양 성분 변화 그래프</h2>
             <canvas id="nutritionChart"></canvas>
         </section>
 
+        <!-- 영양 성분 수치 -->
         <section>
             <h2>영양 성분 수치</h2>
             <table>
@@ -37,10 +50,7 @@
         </section>
     </main>
 
-    <footer>
-        <p>© 2024 Tomato Quality Tracker</p>
-    </footer>
-
+ 
     <script>
         // 고정된 3개월 간 데이터
         const dates = ['2023-09-01', '2023-09-15', '2023-09-30', '2023-10-15', '2023-10-31', '2023-11-15', '2023-11-30', '2023-12-15'];
@@ -60,21 +70,24 @@
                         data: sweetnessData,
                         borderColor: 'rgba(255, 99, 132, 1)',
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        fill: false
+                        fill: false,
+                        pointRadius: 5
                     },
                     {
                         label: '산도 (Acidity)',
                         data: acidityData,
                         borderColor: 'rgba(54, 162, 235, 1)',
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        fill: false
+                        fill: false,
+                        pointRadius: 5
                     },
                     {
                         label: '비타민 C 농도 (mg/100g)',
                         data: vitaminCData,
                         borderColor: 'rgba(75, 192, 192, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        fill: false
+                        fill: false,
+                        pointRadius: 5
                     }
                 ]
             },
