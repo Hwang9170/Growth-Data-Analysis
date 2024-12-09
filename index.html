@@ -1,11 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>토마토 영양 성분 변화</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1> Start</h1>
+    <header>
+        <h1>토마토 영양 성분 3개월 변화</h1>
+        <p>3개월 동안의 당도, 산도, 비타민 C 농도의 변화를 확인하세요.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>3개월간의 영양 성분 변화 그래프</h2>
+            <canvas id="nutritionChart"></canvas>
+        </section>
+
+        <section>
+            <h2>영양 성분 수치</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>당도 (Brix)</th>
+                        <th>산도 (Acidity)</th>
+                        <th>비타민 C 농도 (mg/100g)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 데이터는 여기에 표시됩니다. -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Tomato Quality Tracker</p>
+    </footer>
+
+    <script>
+        // 고정된 3개월 간 데이터
+        const dates = ['2023-09-01', '2023-09-15', '2023-09-30', '2023-10-15', '2023-10-31', '2023-11-15', '2023-11-30', '2023-12-15'];
+        const sweetnessData = [5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.2, 8.5]; // 당도 (Brix)
+        const acidityData = [4.2, 4.1, 4.0, 3.9, 3.8, 3.7, 3.6, 3.5]; // 산도 (Acidity)
+        const vitaminCData = [15, 17, 20, 22, 25, 28, 30, 32]; // 비타민 C 농도 (mg/100g)
+
+        // 그래프 표시
+        const ctx = document.getElementById('nutritionChart').getContext('2d');
+        const nutritionChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [
+                    {
+                        label: '당도 (Brix)',
+                        data: sweetnessData,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: false
+                    },
+                    {
+                        label: '산도 (Acidity)',
+                        data: acidityData,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: false
+                    },
+                    {
+                        label: '비타민 C 농도 (mg/100g)',
+                        data: vitaminCData,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: '날짜'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '농도'
+                        },
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+
+        // 테이블에 데이터 표시
+        const tableBody = document.querySelector('table tbody');
+        for (let i = 0; i < dates.length; i++) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${dates[i]}</td>
+                <td>${sweetnessData[i]}</td>
+                <td>${acidityData[i]}</td>
+                <td>${vitaminCData[i]}</td>
+            `;
+            tableBody.appendChild(row);
+        }
+    </script>
 </body>
 </html>
